@@ -1,0 +1,9 @@
+self.enc_in = 7
+self.data_x = (8640, 7)
+train 56791
+self.enc_in = 7
+self.data_x = (3216, 7)
+val 18823
+self.enc_in = 7
+self.data_x = (3216, 7)
+test 18823

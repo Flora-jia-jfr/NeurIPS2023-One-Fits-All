@@ -1,11 +1,11 @@
 export CUDA_VISIBLE_DEVICES=2
 
 seq_len=512
-model=GPT4TS
+model=GPT4TS_adapter
 
 for percent in 100
 do
-for pred_len in 96 # 192 336 720
+for pred_len in 96 192 336 720
 do
 
 python main.py \
@@ -35,7 +35,6 @@ python main.py \
     --model $model \
     --cos 1 \
     --is_gpt 1 \
-    --from_trained './checkpoints/ETTm2_GPT4TS__512_96_100_sl336_ll48_pl96_dm768_nh4_el3_gl6_df768_ebtimeF_itr0/' \
     > ETTm1_$model'_'$gpt_layer'_'$seq_len'_'$pred_len'_'$percent.log
 done
 done

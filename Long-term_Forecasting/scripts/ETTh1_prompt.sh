@@ -1,21 +1,12 @@
 
-export CUDA_VISIBLE_DEVICES=2
+export CUDA_VISIBLE_DEVICES=1
 
 seq_len=336
-model=GPT4TS
-
-# for percent in 5 10
-# do
-# for pred_len in 96 192 336 720
-# do
-# for lr in 100
-# do
+model=GPT4TS_prompt
 
 for percent in 100
 do
 for pred_len in 96 192 336 720
-do
-for lr in 0.001
 do
 
 python main.py \
@@ -47,9 +38,7 @@ python main.py \
     --tmax 20 \
     --cos 1 \
     --is_gpt 1 \
-    --prompt_num 2\
     > ETTh1_$model'_'$gpt_layer'_'$seq_len'_'$pred_len'_'$percent.log
 
-done
 done
 done

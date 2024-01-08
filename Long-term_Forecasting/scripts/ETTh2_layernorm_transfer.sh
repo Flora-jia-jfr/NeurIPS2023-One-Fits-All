@@ -1,11 +1,11 @@
-export CUDA_VISIBLE_DEVICES=2
+export CUDA_VISIBLE_DEVICES=0
 
 seq_len=336
-model=GPT4TS
+model=GPT4TS_prompt
 
 for percent in 100
 do
-for pred_len in 96 192 336 720
+for pred_len in 720 #96 192 336 720
 do
 
 python main.py \
@@ -37,7 +37,8 @@ python main.py \
     --tmax 20 \
     --pretrain 1 \
     --is_gpt 1 \
-    > ETTh2_$model'_'$gpt_layer'_'$seq_len'_'$pred_len'_'$percent.log
-
+    --from_trained './checkpoints/ETTh1_GPT4TS_prompt__336_'$pred_len'_100_sl336_ll168_pl'$pred_len'_dm768_nh4_el3_gl6_df768_ebtimeF_itr0' \
+    --additional_setting 'layernorm_transfer' \
+    > ETTh2_layernorm_transfer_$model'_'$gpt_layer'_'$seq_len'_'$pred_len'_'$percent.log
 done
 done

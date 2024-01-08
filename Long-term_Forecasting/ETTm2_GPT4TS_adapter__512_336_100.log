@@ -1,0 +1,554 @@
+train 235991
+val 78295
+test 78295
+gpt2 = GPT2AdapterModel(
+  (transformer): GPT2Model(
+    (wte): Embedding(50257, 768)
+    (wpe): Embedding(1024, 768)
+    (drop): Dropout(p=0.1, inplace=False)
+    (h): ModuleList(
+      (0-5): 6 x GPT2BlockWithAdapters(
+        (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (attn): GPT2AttentionWithAdapters(
+          (c_attn): MergedLinear(
+            in_features=768, out_features=2304, bias=True
+            (loras): ModuleDict()
+          )
+          (c_proj): Conv1D()
+          (attn_dropout): Dropout(p=0.1, inplace=False)
+          (resid_dropout): Dropout(p=0.1, inplace=False)
+          (prefix_tuning): PrefixTuningLayer(
+            (prefix_gates): ModuleDict()
+            (pool): PrefixTuningPool(
+              (prefix_tunings): ModuleDict()
+            )
+          )
+        )
+        (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (mlp): GPT2MLP(
+          (c_fc): Linear(
+            in_features=768, out_features=3072, bias=True
+            (loras): ModuleDict()
+          )
+          (c_proj): Linear(
+            in_features=3072, out_features=768, bias=True
+            (loras): ModuleDict()
+          )
+          (act): NewGELUActivation()
+          (dropout): Dropout(p=0.1, inplace=False)
+        )
+        (attention_adapters): BottleneckLayer(
+          (adapters): ModuleDict(
+            (ts_adapter): Adapter(
+              (non_linearity): Activation_Function_Class(
+                (f): SiLUActivation()
+              )
+              (adapter_down): Sequential(
+                (0): Linear(in_features=768, out_features=48, bias=True)
+                (1): Activation_Function_Class(
+                  (f): SiLUActivation()
+                )
+              )
+              (adapter_up): Linear(in_features=48, out_features=768, bias=True)
+            )
+          )
+          (adapter_fusion_layer): ModuleDict()
+        )
+        (output_adapters): BottleneckLayer(
+          (adapters): ModuleDict(
+            (ts_adapter): Adapter(
+              (non_linearity): Activation_Function_Class(
+                (f): SiLUActivation()
+              )
+              (adapter_down): Sequential(
+                (0): Linear(in_features=768, out_features=48, bias=True)
+                (1): Activation_Function_Class(
+                  (f): SiLUActivation()
+                )
+              )
+              (adapter_up): Linear(in_features=48, out_features=768, bias=True)
+            )
+          )
+          (adapter_fusion_layer): ModuleDict()
+        )
+      )
+    )
+    (ln_f): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+    (invertible_adapters): ModuleDict()
+    (shared_parameters): ModuleDict()
+    (prefix_tuning): PrefixTuningPool(
+      (prefix_tunings): ModuleDict()
+    )
+  )
+  (heads): ModuleDict(
+    (default): CausalLMHead(
+      (0): Linear(in_features=768, out_features=50257, bias=False)
+    )
+  )
+)
+transformer.wpe.weight
+transformer.h.0.ln_1.weight
+transformer.h.0.ln_1.bias
+transformer.h.0.ln_2.weight
+transformer.h.0.ln_2.bias
+transformer.h.0.attention_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.0.attention_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.0.attention_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.0.attention_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.0.output_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.0.output_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.0.output_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.0.output_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.1.ln_1.weight
+transformer.h.1.ln_1.bias
+transformer.h.1.ln_2.weight
+transformer.h.1.ln_2.bias
+transformer.h.1.attention_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.1.attention_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.1.attention_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.1.attention_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.1.output_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.1.output_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.1.output_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.1.output_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.2.ln_1.weight
+transformer.h.2.ln_1.bias
+transformer.h.2.ln_2.weight
+transformer.h.2.ln_2.bias
+transformer.h.2.attention_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.2.attention_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.2.attention_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.2.attention_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.2.output_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.2.output_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.2.output_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.2.output_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.3.ln_1.weight
+transformer.h.3.ln_1.bias
+transformer.h.3.ln_2.weight
+transformer.h.3.ln_2.bias
+transformer.h.3.attention_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.3.attention_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.3.attention_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.3.attention_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.3.output_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.3.output_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.3.output_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.3.output_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.4.ln_1.weight
+transformer.h.4.ln_1.bias
+transformer.h.4.ln_2.weight
+transformer.h.4.ln_2.bias
+transformer.h.4.attention_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.4.attention_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.4.attention_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.4.attention_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.4.output_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.4.output_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.4.output_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.4.output_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.5.ln_1.weight
+transformer.h.5.ln_1.bias
+transformer.h.5.ln_2.weight
+transformer.h.5.ln_2.bias
+transformer.h.5.attention_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.5.attention_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.5.attention_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.5.attention_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.5.output_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.5.output_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.5.output_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.5.output_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.ln_f.weight
+transformer.ln_f.bias
+Epoch: 1 cost time: 289.5452799797058
+Epoch: 1, Steps: 921 | Train Loss: 0.3770940 Vali Loss: 0.2044031
+lr = 0.0019510568
+Validation loss decreased (inf --> 0.204403).  Saving model ...
+Epoch: 2 cost time: 290.05266404151917
+Epoch: 2, Steps: 921 | Train Loss: 0.2692063 Vali Loss: 0.2115940
+lr = 0.0018090179
+EarlyStopping counter: 1 out of 3
+Epoch: 3 cost time: 290.8750104904175
+Epoch: 3, Steps: 921 | Train Loss: 0.2344681 Vali Loss: 0.2192896
+lr = 0.0015877873
+EarlyStopping counter: 2 out of 3
+Epoch: 4 cost time: 290.1526665687561
+Epoch: 4, Steps: 921 | Train Loss: 0.2109250 Vali Loss: 0.2277177
+lr = 0.0013090204
+EarlyStopping counter: 3 out of 3
+Early stopping
+------------------------------------
+test shape: (305, 256, 336, 1) (305, 256, 336, 1)
+test shape: (78080, 336, 1) (78080, 336, 1)
+mae:0.3514, mse:0.3061, rmse:0.5533, smape:53.1975
+train 235991
+val 78295
+test 78295
+gpt2 = GPT2AdapterModel(
+  (transformer): GPT2Model(
+    (wte): Embedding(50257, 768)
+    (wpe): Embedding(1024, 768)
+    (drop): Dropout(p=0.1, inplace=False)
+    (h): ModuleList(
+      (0-5): 6 x GPT2BlockWithAdapters(
+        (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (attn): GPT2AttentionWithAdapters(
+          (c_attn): MergedLinear(
+            in_features=768, out_features=2304, bias=True
+            (loras): ModuleDict()
+          )
+          (c_proj): Conv1D()
+          (attn_dropout): Dropout(p=0.1, inplace=False)
+          (resid_dropout): Dropout(p=0.1, inplace=False)
+          (prefix_tuning): PrefixTuningLayer(
+            (prefix_gates): ModuleDict()
+            (pool): PrefixTuningPool(
+              (prefix_tunings): ModuleDict()
+            )
+          )
+        )
+        (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (mlp): GPT2MLP(
+          (c_fc): Linear(
+            in_features=768, out_features=3072, bias=True
+            (loras): ModuleDict()
+          )
+          (c_proj): Linear(
+            in_features=3072, out_features=768, bias=True
+            (loras): ModuleDict()
+          )
+          (act): NewGELUActivation()
+          (dropout): Dropout(p=0.1, inplace=False)
+        )
+        (attention_adapters): BottleneckLayer(
+          (adapters): ModuleDict(
+            (ts_adapter): Adapter(
+              (non_linearity): Activation_Function_Class(
+                (f): SiLUActivation()
+              )
+              (adapter_down): Sequential(
+                (0): Linear(in_features=768, out_features=48, bias=True)
+                (1): Activation_Function_Class(
+                  (f): SiLUActivation()
+                )
+              )
+              (adapter_up): Linear(in_features=48, out_features=768, bias=True)
+            )
+          )
+          (adapter_fusion_layer): ModuleDict()
+        )
+        (output_adapters): BottleneckLayer(
+          (adapters): ModuleDict(
+            (ts_adapter): Adapter(
+              (non_linearity): Activation_Function_Class(
+                (f): SiLUActivation()
+              )
+              (adapter_down): Sequential(
+                (0): Linear(in_features=768, out_features=48, bias=True)
+                (1): Activation_Function_Class(
+                  (f): SiLUActivation()
+                )
+              )
+              (adapter_up): Linear(in_features=48, out_features=768, bias=True)
+            )
+          )
+          (adapter_fusion_layer): ModuleDict()
+        )
+      )
+    )
+    (ln_f): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+    (invertible_adapters): ModuleDict()
+    (shared_parameters): ModuleDict()
+    (prefix_tuning): PrefixTuningPool(
+      (prefix_tunings): ModuleDict()
+    )
+  )
+  (heads): ModuleDict(
+    (default): CausalLMHead(
+      (0): Linear(in_features=768, out_features=50257, bias=False)
+    )
+  )
+)
+transformer.wpe.weight
+transformer.h.0.ln_1.weight
+transformer.h.0.ln_1.bias
+transformer.h.0.ln_2.weight
+transformer.h.0.ln_2.bias
+transformer.h.0.attention_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.0.attention_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.0.attention_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.0.attention_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.0.output_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.0.output_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.0.output_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.0.output_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.1.ln_1.weight
+transformer.h.1.ln_1.bias
+transformer.h.1.ln_2.weight
+transformer.h.1.ln_2.bias
+transformer.h.1.attention_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.1.attention_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.1.attention_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.1.attention_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.1.output_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.1.output_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.1.output_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.1.output_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.2.ln_1.weight
+transformer.h.2.ln_1.bias
+transformer.h.2.ln_2.weight
+transformer.h.2.ln_2.bias
+transformer.h.2.attention_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.2.attention_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.2.attention_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.2.attention_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.2.output_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.2.output_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.2.output_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.2.output_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.3.ln_1.weight
+transformer.h.3.ln_1.bias
+transformer.h.3.ln_2.weight
+transformer.h.3.ln_2.bias
+transformer.h.3.attention_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.3.attention_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.3.attention_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.3.attention_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.3.output_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.3.output_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.3.output_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.3.output_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.4.ln_1.weight
+transformer.h.4.ln_1.bias
+transformer.h.4.ln_2.weight
+transformer.h.4.ln_2.bias
+transformer.h.4.attention_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.4.attention_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.4.attention_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.4.attention_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.4.output_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.4.output_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.4.output_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.4.output_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.5.ln_1.weight
+transformer.h.5.ln_1.bias
+transformer.h.5.ln_2.weight
+transformer.h.5.ln_2.bias
+transformer.h.5.attention_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.5.attention_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.5.attention_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.5.attention_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.5.output_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.5.output_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.5.output_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.5.output_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.ln_f.weight
+transformer.ln_f.bias
+Epoch: 1 cost time: 289.189386844635
+Epoch: 1, Steps: 921 | Train Loss: 0.3672486 Vali Loss: 0.2075814
+lr = 0.0019510568
+Validation loss decreased (inf --> 0.207581).  Saving model ...
+Epoch: 2 cost time: 290.1868681907654
+Epoch: 2, Steps: 921 | Train Loss: 0.2649523 Vali Loss: 0.2183555
+lr = 0.0018090179
+EarlyStopping counter: 1 out of 3
+Epoch: 3 cost time: 291.0521755218506
+Epoch: 3, Steps: 921 | Train Loss: 0.2295463 Vali Loss: 0.2196698
+lr = 0.0015877873
+EarlyStopping counter: 2 out of 3
+Epoch: 4 cost time: 290.5528464317322
+Epoch: 4, Steps: 921 | Train Loss: 0.2022267 Vali Loss: 0.2321788
+lr = 0.0013090204
+EarlyStopping counter: 3 out of 3
+Early stopping
+------------------------------------
+test shape: (305, 256, 336, 1) (305, 256, 336, 1)
+test shape: (78080, 336, 1) (78080, 336, 1)
+mae:0.3449, mse:0.2914, rmse:0.5398, smape:52.7086
+train 235991
+val 78295
+test 78295
+gpt2 = GPT2AdapterModel(
+  (transformer): GPT2Model(
+    (wte): Embedding(50257, 768)
+    (wpe): Embedding(1024, 768)
+    (drop): Dropout(p=0.1, inplace=False)
+    (h): ModuleList(
+      (0-5): 6 x GPT2BlockWithAdapters(
+        (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (attn): GPT2AttentionWithAdapters(
+          (c_attn): MergedLinear(
+            in_features=768, out_features=2304, bias=True
+            (loras): ModuleDict()
+          )
+          (c_proj): Conv1D()
+          (attn_dropout): Dropout(p=0.1, inplace=False)
+          (resid_dropout): Dropout(p=0.1, inplace=False)
+          (prefix_tuning): PrefixTuningLayer(
+            (prefix_gates): ModuleDict()
+            (pool): PrefixTuningPool(
+              (prefix_tunings): ModuleDict()
+            )
+          )
+        )
+        (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (mlp): GPT2MLP(
+          (c_fc): Linear(
+            in_features=768, out_features=3072, bias=True
+            (loras): ModuleDict()
+          )
+          (c_proj): Linear(
+            in_features=3072, out_features=768, bias=True
+            (loras): ModuleDict()
+          )
+          (act): NewGELUActivation()
+          (dropout): Dropout(p=0.1, inplace=False)
+        )
+        (attention_adapters): BottleneckLayer(
+          (adapters): ModuleDict(
+            (ts_adapter): Adapter(
+              (non_linearity): Activation_Function_Class(
+                (f): SiLUActivation()
+              )
+              (adapter_down): Sequential(
+                (0): Linear(in_features=768, out_features=48, bias=True)
+                (1): Activation_Function_Class(
+                  (f): SiLUActivation()
+                )
+              )
+              (adapter_up): Linear(in_features=48, out_features=768, bias=True)
+            )
+          )
+          (adapter_fusion_layer): ModuleDict()
+        )
+        (output_adapters): BottleneckLayer(
+          (adapters): ModuleDict(
+            (ts_adapter): Adapter(
+              (non_linearity): Activation_Function_Class(
+                (f): SiLUActivation()
+              )
+              (adapter_down): Sequential(
+                (0): Linear(in_features=768, out_features=48, bias=True)
+                (1): Activation_Function_Class(
+                  (f): SiLUActivation()
+                )
+              )
+              (adapter_up): Linear(in_features=48, out_features=768, bias=True)
+            )
+          )
+          (adapter_fusion_layer): ModuleDict()
+        )
+      )
+    )
+    (ln_f): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+    (invertible_adapters): ModuleDict()
+    (shared_parameters): ModuleDict()
+    (prefix_tuning): PrefixTuningPool(
+      (prefix_tunings): ModuleDict()
+    )
+  )
+  (heads): ModuleDict(
+    (default): CausalLMHead(
+      (0): Linear(in_features=768, out_features=50257, bias=False)
+    )
+  )
+)
+transformer.wpe.weight
+transformer.h.0.ln_1.weight
+transformer.h.0.ln_1.bias
+transformer.h.0.ln_2.weight
+transformer.h.0.ln_2.bias
+transformer.h.0.attention_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.0.attention_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.0.attention_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.0.attention_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.0.output_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.0.output_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.0.output_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.0.output_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.1.ln_1.weight
+transformer.h.1.ln_1.bias
+transformer.h.1.ln_2.weight
+transformer.h.1.ln_2.bias
+transformer.h.1.attention_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.1.attention_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.1.attention_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.1.attention_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.1.output_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.1.output_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.1.output_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.1.output_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.2.ln_1.weight
+transformer.h.2.ln_1.bias
+transformer.h.2.ln_2.weight
+transformer.h.2.ln_2.bias
+transformer.h.2.attention_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.2.attention_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.2.attention_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.2.attention_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.2.output_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.2.output_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.2.output_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.2.output_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.3.ln_1.weight
+transformer.h.3.ln_1.bias
+transformer.h.3.ln_2.weight
+transformer.h.3.ln_2.bias
+transformer.h.3.attention_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.3.attention_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.3.attention_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.3.attention_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.3.output_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.3.output_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.3.output_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.3.output_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.4.ln_1.weight
+transformer.h.4.ln_1.bias
+transformer.h.4.ln_2.weight
+transformer.h.4.ln_2.bias
+transformer.h.4.attention_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.4.attention_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.4.attention_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.4.attention_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.4.output_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.4.output_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.4.output_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.4.output_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.5.ln_1.weight
+transformer.h.5.ln_1.bias
+transformer.h.5.ln_2.weight
+transformer.h.5.ln_2.bias
+transformer.h.5.attention_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.5.attention_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.5.attention_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.5.attention_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.h.5.output_adapters.adapters.ts_adapter.adapter_down.0.weight
+transformer.h.5.output_adapters.adapters.ts_adapter.adapter_down.0.bias
+transformer.h.5.output_adapters.adapters.ts_adapter.adapter_up.weight
+transformer.h.5.output_adapters.adapters.ts_adapter.adapter_up.bias
+transformer.ln_f.weight
+transformer.ln_f.bias
+Epoch: 1 cost time: 289.24666023254395
+Epoch: 1, Steps: 921 | Train Loss: 0.3943977 Vali Loss: 0.2144036
+lr = 0.0019510568
+Validation loss decreased (inf --> 0.214404).  Saving model ...
+Epoch: 2 cost time: 290.0797989368439
+Epoch: 2, Steps: 921 | Train Loss: 0.2833753 Vali Loss: 0.2184981
+lr = 0.0018090179
+EarlyStopping counter: 1 out of 3
+Epoch: 3 cost time: 290.52715826034546
+Epoch: 3, Steps: 921 | Train Loss: 0.2505762 Vali Loss: 0.2165882
+lr = 0.0015877873
+EarlyStopping counter: 2 out of 3
+Epoch: 4 cost time: 290.6149203777313
+Epoch: 4, Steps: 921 | Train Loss: 0.2270274 Vali Loss: 0.2307370
+lr = 0.0013090204
+EarlyStopping counter: 3 out of 3
+Early stopping
+------------------------------------
+test shape: (305, 256, 336, 1) (305, 256, 336, 1)
+test shape: (78080, 336, 1) (78080, 336, 1)
+mae:0.3672, mse:0.3513, rmse:0.5927, smape:54.4563
+mse_mean = 0.3163, mse_std = 0.0255
+mae_mean = 0.3545, mae_std = 0.0094

@@ -1,42 +1,43 @@
 export CUDA_VISIBLE_DEVICES=2
 
-seq_len=512
-model=GPT4TS
+seq_len=336
+model=GPT4TS_adapter
 
 for percent in 100
 do
-for pred_len in 96 # 192 336 720
+for pred_len in 96 192 336 720
 do
 
 python main.py \
     --root_path ./datasets/ETT-small/ \
-    --data_path ETTm1.csv \
-    --model_id ETTm1_$model'_'$gpt_layer'_'$seq_len'_'$pred_len'_'$percent \
-    --data ett_m \
+    --data_path ETTh2.csv \
+    --model_id ETTh2_$model'_'$gpt_layer'_'$seq_len'_'$pred_len'_'$percent \
+    --data ett_h \
     --seq_len $seq_len \
-    --label_len 48 \
+    --label_len 168 \
     --pred_len $pred_len \
     --batch_size 256 \
+    --decay_fac 0.5 \
     --learning_rate 0.001 \
     --train_epochs 10 \
-    --decay_fac 0.75 \
     --d_model 768 \
     --n_heads 4 \
     --d_ff 768 \
-    --dropout 0.3 \
+    --dropout 1 \
     --enc_in 7 \
     --c_out 7 \
     --freq 0 \
     --patch_size 16 \
-    --stride 16 \
+    --stride 8 \
     --percent $percent \
     --gpt_layer 6 \
     --itr 3 \
     --model $model \
     --cos 1 \
+    --tmax 20 \
+    --pretrain 1 \
     --is_gpt 1 \
-    --from_trained './checkpoints/ETTm2_GPT4TS__512_96_100_sl336_ll48_pl96_dm768_nh4_el3_gl6_df768_ebtimeF_itr0/' \
-    > ETTm1_$model'_'$gpt_layer'_'$seq_len'_'$pred_len'_'$percent.log
-done
-done
+    > ETTh2_$model'_'$gpt_layer'_'$seq_len'_'$pred_len'_'$percent.log
 
+done
+done

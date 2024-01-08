@@ -3,13 +3,17 @@ from utils.tools import EarlyStopping, adjust_learning_rate, visual, vali, test
 from tqdm import tqdm
 from models.PatchTST import PatchTST
 from models.GPT4TS import GPT4TS
+from models.GPT4TS_prompt import GPT4TS_prompt
+from models.GPT4TS_adapter import GPT4TS_adapter
+from models.GPT4TS_prompt_freeze_pretrain import GPT4TS_prompt_freeze_pretrain
+from models.GPT4TS_specialized_adapters import GPT4TS_specialized_adapters
 from models.DLinear import DLinear
-
 
 import numpy as np
 import torch
 import torch.nn as nn
 from torch import optim
+import gc
 
 import os
 import time
@@ -78,7 +82,9 @@ parser.add_argument('--tmax', type=int, default=10)
 parser.add_argument('--itr', type=int, default=3)
 parser.add_argument('--cos', type=int, default=0)
 
-
+parser.add_argument('--from_trained', type=str, default='')
+# parser.add_argument('--prompt_num', type=int, default=0, help="add patchnum/prompt_num patches")
+parser.add_argument('--additional_setting', type=str, default='')
 
 args = parser.parse_args()
 
@@ -99,7 +105,7 @@ maes = []
 
 for ii in range(args.itr):
 
-    setting = '{}_sl{}_ll{}_pl{}_dm{}_nh{}_el{}_gl{}_df{}_eb{}_itr{}'.format(args.model_id, 336, args.label_len, args.pred_len,
+    setting = '{}{}_sl{}_ll{}_pl{}_dm{}_nh{}_el{}_gl{}_df{}_eb{}_itr{}'.format(args.additional_setting, args.model_id, 336, args.label_len, args.pred_len,
                                                                     args.d_model, args.n_heads, args.e_layers, args.gpt_layers, 
                                                                     args.d_ff, args.embed, ii)
     path = os.path.join(args.checkpoints, setting)
@@ -128,10 +134,38 @@ for ii in range(args.itr):
     elif args.model == 'DLinear':
         model = DLinear(args, device)
         model.to(device)
-    else:
+    elif args.model == 'GPT4TS':
         model = GPT4TS(args, device)
+        model.to(device)
+    elif args.model == 'GPT4TS_prompt':
+        model = GPT4TS_prompt(args, device)
+        model.to(device)
+    elif args.model == 'GPT4TS_adapter':
+        model = GPT4TS_adapter(args, device)
+        model.to(device)
+    elif args.model == 'GPT4TS_prompt_freeze_pretrain':
+        model = GPT4TS_prompt_freeze_pretrain(args, device)
+        model.to(device)
+    elif args.model == 'GPT4TS_specialized_adapters':
+        model = GPT4TS_specialized_adapters(args, device)
+        model.to(device)
+    else:
+        print(f"no model named {model}")
     # mse, mae = test(model, test_data, test_loader, args, device, ii)
 
+    if args.from_trained != '':
+        if args.additional_setting == 'layernorm_transfer': # train layernorm and positional embedding only
+            model_dict = torch.load(os.path.join(args.from_trained, 'checkpoint.pth'))
+            model.prompts = torch.nn.Parameter(model_dict['prompts'])
+            del model_dict
+            gc.collect()
+            model.to(device)
+        else: # train prompt only
+            model.load_state_dict(torch.load(os.path.join(args.from_trained, 'checkpoint.pth')))
+            # replace the prompt with a newly initialized prompt module
+            model.prompts = nn.Parameter(torch.rand(int(model.patch_num/4), 768))
+            model.to(device)
+    
     params = model.parameters()
     model_optim = torch.optim.Adam(params, lr=args.learning_rate)
     

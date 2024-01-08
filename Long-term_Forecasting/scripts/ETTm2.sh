@@ -1,4 +1,4 @@
-export CUDA_VISIBLE_DEVICES=0
+export CUDA_VISIBLE_DEVICES=1
 
 seq_len=512
 model=GPT4TS
@@ -31,9 +31,10 @@ python main.py \
     --stride 16 \
     --percent $percent \
     --gpt_layer 6 \
-    --itr 1 \
+    --itr 3 \
     --model $model \
     --cos 1 \
-    --is_gpt 1
+    --is_gpt 1 \
+    > ETTm2_$model'_'$gpt_layer'_'$seq_len'_'$pred_len'_'$percent.log
 done
 done

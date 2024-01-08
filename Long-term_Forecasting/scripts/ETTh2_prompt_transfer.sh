@@ -1,40 +1,29 @@
-
 export CUDA_VISIBLE_DEVICES=2
 
 seq_len=336
-model=GPT4TS
-
-# for percent in 5 10
-# do
-# for pred_len in 96 192 336 720
-# do
-# for lr in 100
-# do
+model=GPT4TS_prompt
 
 for percent in 100
 do
 for pred_len in 96 192 336 720
 do
-for lr in 0.001
-do
 
 python main.py \
     --root_path ./datasets/ETT-small/ \
-    --data_path ETTh1.csv \
-    --model_id ETTh1_$model'_'$gpt_layer'_'$seq_len'_'$pred_len'_'$percent \
+    --data_path ETTh2.csv \
+    --model_id ETTh2_$model'_'$gpt_layer'_'$seq_len'_'$pred_len'_'$percent \
     --data ett_h \
     --seq_len $seq_len \
     --label_len 168 \
     --pred_len $pred_len \
     --batch_size 256 \
-    --lradj type4 \
-    --learning_rate $lr \
-    --train_epochs 10 \
     --decay_fac 0.5 \
+    --learning_rate 0.001 \
+    --train_epochs 10 \
     --d_model 768 \
     --n_heads 4 \
     --d_ff 768 \
-    --dropout 0.3 \
+    --dropout 1 \
     --enc_in 7 \
     --c_out 7 \
     --freq 0 \
@@ -44,12 +33,11 @@ python main.py \
     --gpt_layer 6 \
     --itr 3 \
     --model $model \
-    --tmax 20 \
     --cos 1 \
+    --tmax 20 \
+    --pretrain 1 \
     --is_gpt 1 \
-    --prompt_num 2\
-    > ETTh1_$model'_'$gpt_layer'_'$seq_len'_'$pred_len'_'$percent.log
-
-done
+    --from_trained './checkpoints/ETTh1_GPT4TS_prompt__336_'$pred_len'_100_sl336_ll168_pl'$pred_len'_dm768_nh4_el3_gl6_df768_ebtimeF_itr0' \
+    > ETTh2_prompt_transfer_$model'_'$gpt_layer'_'$seq_len'_'$pred_len'_'$percent.log
 done
 done
